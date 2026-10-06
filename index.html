@@ -13,8 +13,26 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #000;
+            color: #00ff66;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            cursor: pointer;
         }
 
         .terminal-container {
@@ -23,14 +41,42 @@
             background-color: #000;
             box-shadow: 0 0 20px rgba(0, 255, 102, 0.25);
             text-align: center;
-            max-width: 500px;
-            width: 85%;
+            max-width: 600px;
+            width: 90%;
         }
 
         h1 {
             font-size: 1.1rem;
             margin-bottom: 20px;
             letter-spacing: 2px;
+        }
+
+        .media-preview {
+            display: flex;
+            justify-content: space-around;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .media-box {
+            border: 1px dashed #00ff66;
+            padding: 10px;
+            background-color: #0a0a0a;
+            max-width: 45%;
+        }
+
+        .media-box img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .media-label {
+            font-size: 0.75rem;
+            color: #888;
+            margin-top: 5px;
         }
 
         input[type="text"] {
@@ -40,7 +86,7 @@
             padding: 10px;
             font-family: inherit;
             font-size: 1rem;
-            width: 65%;
+            width: 60%;
             text-align: center;
             outline: none;
         }
@@ -69,8 +115,26 @@
 </head>
 <body>
 
+    <div id="overlay" onclick="startExperience()">
+        <p>[ SYSTEM RESTRICTED ]</p>
+        <p style="font-size: 0.85rem; color: #888;">CLICK ANYWHERE TO INITIALIZE TERMINAL</p>
+    </div>
+
     <div class="terminal-container">
         <h1>G.R. DEVLOG // DATABASE ACCESS</h1>
+
+        <div class="media-preview">
+            <div class="media-box">
+                <img src="Raze Render 1.png" alt="Raze Render">
+                <div class="media-label">VESSEL LOG</div>
+            </div>
+
+            <div class="media-box">
+                <img src="Raze Scared.gif" alt="Raze Scared">
+                <div class="media-label">SIGNAL FEED</div>
+            </div>
+        </div>
+
         <p>Enter clearance keyword:</p>
         
         <div>
@@ -82,6 +146,20 @@
     </div>
 
     <script>
+        function startExperience() {
+            let elem = document.documentElement;
+
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.webkitRequestFullscreen) {
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) {
+                elem.msRequestFullscreen();
+            }
+
+            document.getElementById("overlay").style.display = "none";
+        }
+
         function submitKeyword() {
             let input = document.getElementById("keywordInput").value.trim().toLowerCase();
             let msg = document.getElementById("message");
